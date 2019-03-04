@@ -1,0 +1,94 @@
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 172.16.100.254 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ bandwidth 128
+ ip address 192.168.123.2 255.255.255.252
+ clock rate 128000
+!
+interface Serial0/0/1
+ bandwidth 128
+ ip address 192.168.123.9 255.255.255.252
+ clock rate 128000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 20
+ log-adjacency-changes
+ passive-interface FastEthernet0/0
+ network 192.168.123.0 0.0.0.3 area 0
+ network 192.168.123.8 0.0.0.3 area 0
+ network 172.16.100.0 0.0.0.255 area 2
+ network 2.2.2.2 0.0.0.0 area 2
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
