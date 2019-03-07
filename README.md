@@ -41,8 +41,19 @@
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1551631898030_image.png)
 
 ----------
-# 09.Enterprise Campus Architecture -L2&L3switch,vlan,trunk,etherchannel,pvrst+
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1551632123739_image.png)
+# 09.1.(3Layer)-L3switch,vlan,trunk,etherchannel,pvrst+
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1551933228403_image.png)
 
 ----------
+# 09.2.(3Layer)-L3switch,vlan,trunk,etherchannel,pvrst+,HSRP
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1551933253240_image.png)
 
+----------
+# 09.3.(3Layer)-L3switch,vlan,trunk,etherchannel,pvrst+,HSRP,ospf
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1551933289173_image.png)
+
+----------
+# 10.Enterprise Campus Architecture
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1551934000369_image.png)
+
+----------
