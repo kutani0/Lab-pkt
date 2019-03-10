@@ -1,0 +1,153 @@
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 1.1.1.1 255.255.255.255
+!
+interface Loopback1
+ ip address 172.16.102.254 255.255.255.0
+!
+interface FastEthernet0/0
+ no ip address
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/0.2
+ encapsulation dot1Q 12
+ ip address 10.1.12.30 255.255.255.240
+ ip nat inside
+!
+interface FastEthernet0/0.3
+ encapsulation dot1Q 13
+ ip address 10.1.13.30 255.255.255.248
+ ip nat inside
+!
+interface FastEthernet0/0.4
+ encapsulation dot1Q 14
+ ip address 10.1.14.94 255.255.255.224
+!
+interface FastEthernet0/0.99
+ encapsulation dot1Q 99 native
+ ip address 10.1.99.254 255.255.255.0
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ bandwidth 128
+ ip address 192.168.123.1 255.255.255.252
+ ip nat inside
+!
+interface Serial0/0/1
+ bandwidth 64
+ ip address 192.168.123.5 255.255.255.252
+ ip nat inside
+ clock rate 64000
+!
+interface Serial0/1/0
+ no ip address
+ clock rate 2000000
+!
+interface Serial0/1/1
+ bandwidth 64
+ ip address 193.16.1.254 255.255.255.252
+ ip access-group 121 in
+ ip access-group 20 out
+ ip nat outside
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ router-id 1.1.1.1
+ log-adjacency-changes
+ passive-interface FastEthernet0/0
+ network 192.168.123.0 0.0.0.3 area 0
+ network 192.168.123.4 0.0.0.3 area 0
+ network 10.1.12.16 0.0.0.15 area 0
+ network 10.1.13.24 0.0.0.7 area 0
+ network 10.1.14.64 0.0.0.31 area 0
+ network 10.1.99.0 0.0.0.255 area 0
+ network 1.1.1.1 0.0.0.0 area 0
+ network 172.16.102.254 0.0.0.0 area 1
+ default-information originate
+!
+ip nat pool pub171 171.69.233.210 171.69.233.222 netmask 255.255.255.240
+ip nat inside source list 111 interface Serial0/1/1 overload
+ip nat inside source list 112 pool pub171
+ip nat inside source static 172.16.100.103 171.69.233.209 
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/1/1 
+!
+ip flow-export version 9
+!
+!
+access-list 20 permit 193.16.1.252 0.0.0.3
+access-list 20 permit 171.69.233.208 0.0.0.15
+access-list 112 permit tcp 10.1.12.16 0.0.0.15 any eq www
+access-list 112 permit icmp 10.1.12.16 0.0.0.15 any echo
+access-list 112 permit tcp 10.1.13.24 0.0.0.7 any eq www
+access-list 112 permit icmp 10.1.13.24 0.0.0.7 any echo
+access-list 111 permit tcp 10.3.1.0 0.0.0.255 any eq www
+access-list 111 permit icmp 10.3.1.0 0.0.0.255 any echo
+access-list 121 deny tcp any host 171.69.233.209 eq 20
+access-list 121 deny tcp any host 171.69.233.209 eq ftp
+access-list 121 permit ip any 171.69.233.208 0.0.0.15
+access-list 121 permit tcp any 193.16.1.252 0.0.0.3 eq www
+access-list 121 permit icmp any 193.16.1.252 0.0.0.3 8
+access-list 121 permit icmp any 193.16.1.252 0.0.0.3 0
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+

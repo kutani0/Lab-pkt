@@ -58,6 +58,6 @@
 
 ----------
 # 10.2.Enterprise Campus Architecture,vpn
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1552184818448_image.png)
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_9E2EEBE764B079B73CE94C0BD3ADA1071ED6780B5D9F5A1B2BF64A0EB71E3E7D_1552187520351_image.png)
 
 ----------

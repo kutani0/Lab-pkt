@@ -1,0 +1,124 @@
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R6
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 6.6.6.6 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 10.6.1.250 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address 10.6.1.254 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ bandwidth 64
+ ip address 193.16.6.254 255.255.255.252
+ ip access-group 168 in
+ ip access-group 60 out
+ ip nat outside
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/1/0
+ bandwidth 64
+ ip address 192.168.145.5 255.255.255.252
+ ip nat inside
+ clock rate 64000
+!
+interface Serial0/1/1
+ bandwidth 128
+ ip address 192.168.145.1 255.255.255.252
+ ip nat inside
+ clock rate 128000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 60
+ router-id 6.6.6.6
+ log-adjacency-changes
+ network 10.6.1.0 0.0.0.255 area 0
+ network 6.6.6.6 0.0.0.0 area 0
+ network 192.168.145.0 0.0.0.3 area 4
+ network 192.168.145.4 0.0.0.3 area 5
+ default-information originate
+!
+ip nat pool net66 172.69.233.209 172.69.233.222 netmask 255.255.255.240
+ip nat inside source list 167 pool net66
+ip nat inside source static 10.5.0.1 193.16.6.254 
+ip classless
+ip route 0.0.0.0 0.0.0.0 Serial0/0/0 
+!
+ip flow-export version 9
+!
+!
+access-list 60 permit 193.16.6.252 0.0.0.3
+access-list 60 permit 172.69.233.208 0.0.0.15
+access-list 167 permit tcp 10.6.12.96 0.0.0.31 any eq www
+access-list 167 permit tcp 10.6.13.64 0.0.0.15 any eq www
+access-list 167 permit icmp 10.6.13.64 0.0.0.15 any echo
+access-list 167 permit icmp 10.6.12.96 0.0.0.31 any echo
+access-list 168 permit ip any 172.69.233.208 0.0.0.15
+access-list 168 permit tcp any 193.16.6.252 0.0.0.3 eq www
+access-list 168 permit icmp any 193.16.6.252 0.0.0.3 8
+access-list 168 permit icmp any 193.16.6.252 0.0.0.3 0
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
